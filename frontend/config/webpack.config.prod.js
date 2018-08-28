@@ -151,6 +151,7 @@ module.exports = {
             options: {
               
               compact: true,
+			  plugins: [["import", { "libraryName": "antd", "style": "css" }]]
             },
           },
           // The notation here is somewhat confusing.
