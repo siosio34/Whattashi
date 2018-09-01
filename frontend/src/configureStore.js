@@ -1,12 +1,11 @@
-import { routerMiddleware } from 'react-router-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import createReducer from './reducers';
+import rootReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default function configureStore(initialState = {}, history) {
-	const middlewares = [sagaMiddleware, routerMiddleware(history)];
+export default function configureStore(initialState = {}) {
+	const middlewares = [sagaMiddleware];
 	const enhancers = [applyMiddleware(...middlewares)];
 	
 	const composeEnhancers =
@@ -22,11 +21,10 @@ export default function configureStore(initialState = {}, history) {
   /* eslint-enable */
 
   const store = createStore(
-    createReducer(),
+    rootReducer,
     composeEnhancers(...enhancers)
   );
   store.runSaga = sagaMiddleware.run;
 	return store;
-	
 }
 
